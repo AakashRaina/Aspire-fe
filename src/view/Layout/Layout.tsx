@@ -16,7 +16,7 @@ export function Layout({ children }: LayoutProps) {
           <div className='flex-[1.5]'>
             <Header />
           </div>
-          <div className='flex-[8.5] bg-sky-950 md:bg-white'>
+          <div className='flex-[8] bg-sky-950 md:bg-white'>
             <main className='overflow-auto p-4'>{children}</main>
           </div>
         </div>
