@@ -1,11 +1,26 @@
 import Sidebar from "../Sidebar/Sidebar";
 import Header from "../Header";
+import { Sheet } from "react-modal-sheet";
+import { useState, useEffect } from "react";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export function Layout({ children }: LayoutProps) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkIsMobile();
+    window.addEventListener("resize", checkIsMobile);
+
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, []);
+
   return (
     <div className='min-h-screen bg-background'>
       <div className='flex h-screen'>
@@ -21,6 +36,26 @@ export function Layout({ children }: LayoutProps) {
           </div>
         </div>
       </div>
+      {isMobile && (
+        <Sheet
+          isOpen={true}
+          onClose={() => {}}
+          snapPoints={[0.3]}
+          initialSnap={1}
+        >
+          <Sheet.Container>
+            <Sheet.Header>
+              <Header />
+            </Sheet.Header>
+            <Sheet.Content>
+              <div>
+                <h1>Sheet</h1>
+              </div>
+            </Sheet.Content>
+          </Sheet.Container>
+          <Sheet.Backdrop />
+        </Sheet>
+      )}
     </div>
   );
 }
