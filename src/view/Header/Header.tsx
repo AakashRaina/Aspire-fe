@@ -19,7 +19,13 @@ function Header() {
           </div>
         </div>
         <div className='flex items-center gap-3'>
-          <Button size='lg' className='bg-sky-950 text-sky-300 md:text-white'>
+          <Button
+            size='lg'
+            className='bg-sky-950 text-sky-300 md:text-white'
+            onClick={() => {
+              console.log("New card");
+            }}
+          >
             <CirclePlus /> New card
           </Button>
         </div>

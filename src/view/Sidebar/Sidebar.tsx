@@ -1,20 +1,7 @@
-import HomeIcon from "../../assets/Home.svg";
-import AccountIcon from "../../assets/Account.svg";
-import CardIcon from "../../assets/Card.svg";
-import CreditIcon from "../../assets/Credit.svg";
-import PaymentsIcon from "../../assets/Payments.svg";
+import { menuItems } from "./contants";
 import AspireLogo from "../../assets/Logo.svg";
 
 function Sidebar() {
-  const menuItems = [
-    { icon: HomeIcon, label: "Home" },
-    { icon: AccountIcon, label: "Account" },
-    { icon: CardIcon, label: "Cards" },
-    { icon: CreditIcon, label: "Credit" },
-    { icon: PaymentsIcon, label: "Payments" },
-    { icon: AccountIcon, label: "Settings" },
-  ];
-
   return (
     <aside className='w-full h-full border-r border-sidebar-border flex flex-col bg-sky-950'>
       <div className='flex flex-col items-start justify-between p-4 my-4'>

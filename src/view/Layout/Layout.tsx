@@ -1,5 +1,6 @@
 import Sidebar from "../Sidebar/Sidebar";
 import Header from "../Header";
+import Navbar from "../Navbar/Navbar";
 import { Sheet } from "react-modal-sheet";
 import { useState, useEffect } from "react";
 
@@ -32,7 +33,9 @@ export function Layout({ children }: LayoutProps) {
             <Header />
           </div>
           <div className='flex-[8] bg-sky-950 md:bg-white'>
-            <main className='overflow-auto p-4'>{children}</main>
+            <main className={`overflow-auto p-4 ${isMobile ? "pb-20" : ""}`}>
+              {children}
+            </main>
           </div>
         </div>
       </div>
@@ -42,6 +45,7 @@ export function Layout({ children }: LayoutProps) {
           onClose={() => {}}
           snapPoints={[0.3]}
           initialSnap={1}
+          disableDismiss
         >
           <Sheet.Container>
             <Sheet.Header>
@@ -55,6 +59,11 @@ export function Layout({ children }: LayoutProps) {
           </Sheet.Container>
           <Sheet.Backdrop />
         </Sheet>
+      )}
+      {isMobile && (
+        <div className='fixed bottom-0 left-0 right-0 z-[99999] pointer-events-auto'>
+          <Navbar />
+        </div>
       )}
     </div>
   );
