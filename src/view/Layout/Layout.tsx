@@ -3,6 +3,7 @@ import Header from "../Header";
 import Navbar from "../Navbar/Navbar";
 import { Sheet } from "react-modal-sheet";
 import { useState, useEffect } from "react";
+import CardOptions from "../CardOptions/CardOptions";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -49,7 +50,7 @@ export function Layout({ children }: LayoutProps) {
         >
           <Sheet.Container>
             <Sheet.Header>
-              <Header />
+              <CardOptions />
             </Sheet.Header>
             <Sheet.Content>
               <div>

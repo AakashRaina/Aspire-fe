@@ -5,6 +5,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "./components/ui/carousel";
+import CardOptions from "./view/CardOptions/CardOptions";
 
 function App() {
   return (
@@ -24,13 +25,7 @@ function App() {
                         indicators.
                       </p>
                     </div>
-                    <div className='bg-muted p-4 rounded-md'>
-                      <h3 className='font-medium mb-2'>Analytics</h3>
-                      <p className='text-sm text-muted-foreground'>
-                        Detailed insights and data visualization for better
-                        decision making.
-                      </p>
-                    </div>
+                    <CardOptions />
                   </div>
                 </div>
               </CarouselItem>
