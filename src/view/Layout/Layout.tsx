@@ -57,7 +57,6 @@ export function Layout({ children }: LayoutProps) {
               </div>
             </Sheet.Content>
           </Sheet.Container>
-          <Sheet.Backdrop />
         </Sheet>
       )}
       {isMobile && (
