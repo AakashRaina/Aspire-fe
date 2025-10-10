@@ -33,8 +33,12 @@ export function Layout({ children }: LayoutProps) {
           <div className='flex-[1.5]'>
             <Header />
           </div>
-          <div className='flex-[8] bg-sky-950 md:bg-white'>
-            <main className={`overflow-auto p-4 ${isMobile ? "pb-20" : ""}`}>
+          <div className='flex-[8] bg-sky-950 md:bg-white overflow-hidden'>
+            <main
+              className={`h-full overflow-y-auto p-4 ${
+                isMobile ? "pb-20" : ""
+              }`}
+            >
               {children}
             </main>
           </div>
@@ -44,11 +48,12 @@ export function Layout({ children }: LayoutProps) {
         <Sheet
           isOpen={true}
           onClose={() => {}}
-          snapPoints={[0.3]}
+          snapPoints={[0, 0.3, 1]}
           initialSnap={1}
           disableDismiss
+          style={{ pointerEvents: "none" }}
         >
-          <Sheet.Container>
+          <Sheet.Container style={{ pointerEvents: "auto" }}>
             <Sheet.Header>
               <CardOptions />
             </Sheet.Header>

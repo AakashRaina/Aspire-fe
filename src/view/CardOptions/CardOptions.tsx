@@ -29,7 +29,7 @@ const cardOptions = [
 
 function CardOptions() {
   return (
-    <div className='bg-indigo-50 p-4 rounded-md flex flex-row justify-evenly items-center'>
+    <div className='bg-indigo-50 p-4 rounded-t-md md:rounded-md flex flex-row justify-evenly items-center'>
       {cardOptions.map((option, index) => (
         <div
           key={index}
