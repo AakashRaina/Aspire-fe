@@ -5,6 +5,7 @@ import { Sheet } from "react-modal-sheet";
 import { useState, useEffect } from "react";
 import CardOptions from "../CardOptions";
 import Bottomsheet from "../Bottomsheet";
+import useStore from "@/store";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -12,6 +13,7 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   const [isMobile, setIsMobile] = useState(false);
+  const isBottomSheetOpen = useStore((state) => state.isBottomSheetOpen);
 
   useEffect(() => {
     const checkIsMobile = () => {
@@ -47,7 +49,7 @@ export function Layout({ children }: LayoutProps) {
       </div>
       {isMobile && (
         <Sheet
-          isOpen={true}
+          isOpen={isBottomSheetOpen}
           onClose={() => {}}
           snapPoints={[0, 0.3, 1]}
           initialSnap={1}
