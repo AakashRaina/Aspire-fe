@@ -49,7 +49,9 @@ function App() {
         <div className='flex-1 md:flex-1'>
           <div className='relative'>
             {isFetching ? (
-              <Spinner />
+              <div className='flex justify-center items-center h-32'>
+                <Spinner color='#01D167' />
+              </div>
             ) : (
               <Carousel className='mt-5'>
                 <CarouselContent>

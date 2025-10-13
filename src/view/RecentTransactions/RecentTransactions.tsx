@@ -15,18 +15,24 @@ function RecentTransactions() {
 
   const { data: transactionsData, isLoading: isFetching } = useApi<
     Transaction[]
-  >(api.getRecentTransactions);
+  >(() =>
+    recentTransactions.length === 0
+      ? api.getRecentTransactions()
+      : Promise.resolve(recentTransactions)
+  );
 
   useEffect(() => {
-    if (transactionsData) {
+    if (transactionsData && transactionsData.length > 0) {
       setRecentTransactions(transactionsData);
     }
-  }, [transactionsData, recentTransactions.length, setRecentTransactions]);
+  }, [transactionsData, setRecentTransactions]);
 
   return (
     <div>
       {isFetching ? (
-        <Spinner />
+        <div className='flex justify-center items-center h-32'>
+          <Spinner color='#01D167' />
+        </div>
       ) : (
         recentTransactions.map((transaction, index) => (
           <div
