@@ -6,10 +6,19 @@ interface Store {
   recentTransactions: Transaction[];
   cards: Card[];
 }
-export const useStore = create<Store>((set) => ({
+const useStore = create<Store>((set) => ({
   accountBalance: { availableBalance: 0, currency: "SGD" },
   recentTransactions: [],
-  cards: [],
+  cards: [
+    {
+      id: 1,
+      cardNumber: "4567890123456789",
+      cardHolderName: "Aakash Raina",
+      expiryDate: "12/25",
+      cvv: "123",
+      cardType: "visa",
+    },
+  ],
   setAccountBalance: (balance: AccountBalance) =>
     set(() => ({ accountBalance: balance })),
   setRecentTransactions: (transactions: Transaction[]) =>
@@ -19,3 +28,5 @@ export const useStore = create<Store>((set) => ({
   setCards: (cards: Card[]) =>
     set((state) => ({ cards: [...state.cards, ...cards] })),
 }));
+
+export default useStore;

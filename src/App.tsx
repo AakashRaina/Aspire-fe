@@ -17,8 +17,17 @@ import RecentTransactionsIcon from "./assets/Recent_transactions.svg";
 import ShowCardNumberIcon from "./assets/Eye_card.svg";
 import RecentTransactions from "./view/RecentTransactions";
 import Card from "./view/Card";
+import useStore from "./store";
+import { useState } from "react";
 
 function App() {
+  const addCards = useStore((state) => state.cards);
+  const [showCardNumber, setShowCardNumber] = useState(false);
+
+  const handleShowCardNumber = () => {
+    setShowCardNumber((prev) => !prev);
+  };
+
   return (
     <Layout>
       <div className='flex flex-col md:flex-row h-full rounded gap-10 md:p-10 mx-4'>
@@ -26,18 +35,25 @@ function App() {
           <div className='relative'>
             <Carousel className='mt-5'>
               <CarouselContent>
-                <CarouselItem>
-                  <Card />
-                </CarouselItem>
+                {addCards.map((card) => (
+                  <CarouselItem key={card.id}>
+                    <Card card={card} showCardNumber={showCardNumber} />
+                  </CarouselItem>
+                ))}
               </CarouselContent>
             </Carousel>
-            <div className='absolute -top-7 right-0 text-sm text-green-500 font-bold cursor-pointer'>
+            <div
+              className='absolute -top-7 right-0 text-sm text-green-500 font-bold cursor-pointer'
+              onClick={handleShowCardNumber}
+            >
               <img
                 src={ShowCardNumberIcon}
                 alt='Show card number'
                 className='inline'
               />{" "}
-              <p className='inline'> Show card number</p>
+              <p className='inline'>
+                {showCardNumber ? "Hide" : "Show"} card number
+              </p>
             </div>
           </div>
           <div className='hidden md:block mt-5'>
