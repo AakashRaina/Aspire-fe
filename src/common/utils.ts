@@ -5,3 +5,12 @@ export function formatDate(timestamp: number): string {
   const year = date.getFullYear();
   return `${day}/${month}/${year}`;
 }
+
+export function makeId() {
+  let id = "";
+  const numbers = "0123456789";
+  for (let i = 0; i < 4; i++) {
+    id += numbers.charAt(Math.floor(Math.random() * 10));
+  }
+  return Number(id);
+}

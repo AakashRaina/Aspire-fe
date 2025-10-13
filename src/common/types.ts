@@ -2,7 +2,8 @@ export interface Card {
   id: number;
   cardNumber: string;
   cardHolderName: string;
-  expiryDate: string;
+  expMonth: string;
+  expYear: string;
   cvv: string;
   cardType: "visa" | "mastercard";
 }

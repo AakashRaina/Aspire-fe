@@ -9,7 +9,7 @@ function Card({
   card: CardType;
   showCardNumber: boolean;
 }) {
-  const { cardNumber, cardHolderName, expiryDate, cvv } = card;
+  const { cardNumber, cardHolderName, expMonth, expYear, cvv } = card;
 
   const renderedCardNumber = () => {
     if (showCardNumber) {
@@ -50,7 +50,9 @@ function Card({
 
       <div className='flex-1 flex items-center gap-8 p-4'>
         <div>
-          <p className='text-white text-sm font-bold'>Thru: {expiryDate}</p>
+          <p className='text-white text-sm font-bold'>
+            Thru: {expMonth}/{expYear}
+          </p>
         </div>
         <div>
           <p className='text-white text-sm font-bold'>
