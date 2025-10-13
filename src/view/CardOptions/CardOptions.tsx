@@ -33,10 +33,10 @@ function CardOptions() {
       {cardOptions.map((option, index) => (
         <div
           key={index}
-          className='flex flex-col items-center text-center break-words'
+          className='flex flex-col items-center text-center break-words p-2'
         >
           <img src={option.icon} alt={option.label} />
-          <p className='text-xs text-sky-950'>{option.label}</p>
+          <p className='text-xs text-sky-950 pt-2'>{option.label}</p>
         </div>
       ))}
     </div>

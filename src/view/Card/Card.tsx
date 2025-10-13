@@ -14,7 +14,7 @@ function Card({
   const renderedCardNumber = () => {
     if (showCardNumber) {
       return (
-        <p className='font-semibold text-2xl inline-block'>
+        <p className='font-semibold text-xl inline-block'>
           {cardNumber.match(/.{1,4}/g)?.join(" ")}
         </p>
       );
@@ -32,23 +32,23 @@ function Card({
 
   return (
     <div className='h-full bg-green-500 rounded-lg flex flex-col'>
-      <div className='flex-1 flex justify-end items-center p-4'>
+      <div className='flex-1 flex justify-end items-center p-2 px-4 pt-4'>
         <div className='text-white font-semibold'>
           <img src={AspireLogo} alt='Aspire Logo' />
         </div>
       </div>
 
-      <div className='flex-1 flex items-center p-4'>
+      <div className='flex-1 flex items-center p-2 px-4'>
         <div>
           <p className='text-white text-2xl font-bold'>{cardHolderName}</p>
         </div>
       </div>
 
-      <div className='flex-1 flex items-center p-4'>
-        <div className='text-white font-medium'>{renderedCardNumber()}</div>
+      <div className='flex-1 flex items-center p-2 px-4'>
+        <div className='text-white'>{renderedCardNumber()}</div>
       </div>
 
-      <div className='flex-1 flex items-center gap-8 p-4'>
+      <div className='flex-1 flex items-center gap-8 p-2 px-4'>
         <div>
           <p className='text-white text-sm font-bold'>
             Thru: {expMonth}/{expYear}
@@ -61,7 +61,7 @@ function Card({
         </div>
       </div>
 
-      <div className='flex-1 flex items-center p-4 justify-end'>
+      <div className='flex-1 flex items-center p-2 px-4 pb-4 justify-end'>
         <div className='text-white text-sm'>
           <img src={VisaLogo} alt='Visa Logo' />
         </div>
