@@ -1,26 +1,27 @@
 import { ChevronRight } from "lucide-react";
 import { formatDate } from "@/common/utils";
 import { api } from "@/common/api";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Spinner } from "@/components/ui/spinner";
 import useStore from "@/store";
+import { useApi } from "@/hooks/useApi";
+import type { Transaction } from "@/common/types";
 
 function RecentTransactions() {
-  const [isFetching, setIsFetching] = useState<boolean>(false);
   const recentTransactions = useStore((state) => state.recentTransactions);
   const setRecentTransactions = useStore(
     (state) => state.setRecentTransactions
   );
 
+  const { data: transactionsData, isLoading: isFetching } = useApi<
+    Transaction[]
+  >(api.getRecentTransactions);
+
   useEffect(() => {
-    if (recentTransactions.length === 0) {
-      setIsFetching(true);
-      api.getRecentTransactions().then((res) => {
-        setRecentTransactions(res);
-        setIsFetching(false);
-      });
+    if (transactionsData) {
+      setRecentTransactions(transactionsData);
     }
-  }, []);
+  }, [transactionsData, recentTransactions.length, setRecentTransactions]);
 
   return (
     <div>

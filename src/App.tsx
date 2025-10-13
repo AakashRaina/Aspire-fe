@@ -21,20 +21,23 @@ import useStore from "./store";
 import { useState, useEffect } from "react";
 import { api } from "./common/api";
 import { Spinner } from "./components/ui/spinner";
+import { useApi } from "./hooks/useApi";
+import type { Card as CardType } from "./common/types";
 
 function App() {
   const addedCards = useStore((state) => state.cards);
   const setCards = useStore((state) => state.setCards);
   const [showCardNumber, setShowCardNumber] = useState(false);
-  const [isFetching, setIsFetching] = useState<boolean>(false);
+
+  const { data: cardsData, isLoading: isFetching } = useApi<CardType[]>(
+    api.getCards
+  );
 
   useEffect(() => {
-    setIsFetching(true);
-    api.getCards().then((res) => {
-      setCards(res);
-      setIsFetching(false);
-    });
-  }, []);
+    if (cardsData) {
+      setCards(cardsData);
+    }
+  }, [cardsData, setCards]);
 
   const handleShowCardNumber = () => {
     setShowCardNumber((prev) => !prev);

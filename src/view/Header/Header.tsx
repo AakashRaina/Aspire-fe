@@ -1,6 +1,8 @@
 import { CirclePlus } from "lucide-react";
 import { useState, useEffect } from "react";
 import { api } from "@/common/api";
+import { useApi } from "@/hooks/useApi";
+import type { AccountBalance } from "@/common/types";
 import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
@@ -36,7 +38,6 @@ function Header() {
   const addCard = useStore((state) => state.addCard);
   const setAccountBalance = useStore((state) => state.setAccountBalance);
   const accountBalance = useStore((state) => state.accountBalance);
-  const [isFetching, setIsFetching] = useState<boolean>(false);
   const [formData, setFormData] = useState({
     cardName: "",
     cardNumber: "",
@@ -45,6 +46,16 @@ function Header() {
     cvv: "",
     cardType: "visa" as const,
   });
+
+  const { data: balanceData, isLoading: isFetching } = useApi<AccountBalance>(
+    api.getAccountBalance
+  );
+
+  useEffect(() => {
+    if (balanceData) {
+      setAccountBalance(balanceData);
+    }
+  }, [balanceData, setAccountBalance]);
 
   const handleAddCard = () => {
     const card = {
@@ -58,14 +69,6 @@ function Header() {
     };
     addCard(card);
   };
-
-  useEffect(() => {
-    setIsFetching(true);
-    api.getAccountBalance().then((res) => {
-      setAccountBalance(res);
-      setIsFetching(false);
-    });
-  }, []);
 
   return (
     <header className='bg-sky-950 md:bg-white px-4 py-3 h-full w-full'>
