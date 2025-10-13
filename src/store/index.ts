@@ -6,23 +6,23 @@ interface Store {
   recentTransactions: Transaction[];
   cards: Card[];
   addCard: (card: Card) => void;
+  setRecentTransactions: (transactions: Transaction[]) => void;
+  setAccountBalance: (balance: AccountBalance) => void;
+  setCards: (cards: Card[]) => void;
 }
 const useStore = create<Store>((set) => ({
   accountBalance: { availableBalance: 0, currency: "SGD" },
   recentTransactions: [],
-  cards: [
-    {
-      id: 1,
-      cardNumber: "4567890123456789",
-      cardHolderName: "Aakash Raina",
-      expMonth: "12",
-      expYear: "2025",
-      cvv: "123",
-      cardType: "visa",
-    },
-  ],
+  cards: [],
+  setRecentTransactions: (transactions: Transaction[]) =>
+    set({
+      recentTransactions: transactions,
+    }),
+  setAccountBalance: (balance: AccountBalance) =>
+    set({ accountBalance: balance }),
   addCard: (cards: Card) =>
     set((state) => ({ cards: [...state.cards, cards] })),
+  setCards: (cards: Card[]) => set({ cards: cards }),
 }));
 
 export default useStore;

@@ -1,5 +1,6 @@
 import { CirclePlus } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { api } from "@/common/api";
 import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
@@ -29,9 +30,13 @@ import {
 } from "@/components/ui/select";
 import useStore from "@/store";
 import { makeId } from "@/common/utils";
+import { Spinner } from "@/components/ui/spinner";
 
 function Header() {
   const addCard = useStore((state) => state.addCard);
+  const setAccountBalance = useStore((state) => state.setAccountBalance);
+  const accountBalance = useStore((state) => state.accountBalance);
+  const [isFetching, setIsFetching] = useState<boolean>(false);
   const [formData, setFormData] = useState({
     cardName: "",
     cardNumber: "",
@@ -54,6 +59,14 @@ function Header() {
     addCard(card);
   };
 
+  useEffect(() => {
+    setIsFetching(true);
+    api.getAccountBalance().then((res) => {
+      setAccountBalance(res);
+      setIsFetching(false);
+    });
+  }, []);
+
   return (
     <header className='bg-sky-950 md:bg-white px-4 py-3 h-full w-full'>
       <div className='flex items-end justify-between w-full h-full'>
@@ -64,9 +77,13 @@ function Header() {
               <span className='text-sm font-bold bg-green-500 text-white p-1 rounded'>
                 S$
               </span>
-              <p className='text-2xl font-bold text-white md:text-black'>
-                3,000
-              </p>
+              {isFetching ? (
+                <Spinner />
+              ) : (
+                <p className='text-2xl font-bold text-white md:text-black'>
+                  {accountBalance.availableBalance}
+                </p>
+              )}
             </div>
           </div>
         </div>

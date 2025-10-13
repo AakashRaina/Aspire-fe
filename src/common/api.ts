@@ -6,9 +6,10 @@ import type { Card, Transaction, AccountBalance } from "./types";
 const mockCards: Card[] = [
   {
     id: 1,
-    cardNumber: "1234567890123456",
-    cardHolderName: "Mark Henry",
-    expiryDate: "12/25",
+    cardNumber: "4567890123456789",
+    cardHolderName: "Aakash Raina",
+    expMonth: "12",
+    expYear: "2025",
     cvv: "123",
     cardType: "visa",
   },
@@ -74,13 +75,13 @@ async function getRecentTransactions(): Promise<Transaction[]> {
   return mockTransactions;
 }
 
-async function getBalance(): Promise<AccountBalance> {
+async function getAccountBalance(): Promise<AccountBalance> {
   await delay(1000);
   return mockAccountBalance;
 }
 
 export const api = {
-  getBalance,
+  getAccountBalance,
   getCards,
   getRecentTransactions,
 };

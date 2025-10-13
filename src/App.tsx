@@ -18,11 +18,23 @@ import ShowCardNumberIcon from "./assets/Eye_card.svg";
 import RecentTransactions from "./view/RecentTransactions";
 import Card from "./view/Card";
 import useStore from "./store";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { api } from "./common/api";
+import { Spinner } from "./components/ui/spinner";
 
 function App() {
-  const addCards = useStore((state) => state.cards);
+  const addedCards = useStore((state) => state.cards);
+  const setCards = useStore((state) => state.setCards);
   const [showCardNumber, setShowCardNumber] = useState(false);
+  const [isFetching, setIsFetching] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsFetching(true);
+    api.getCards().then((res) => {
+      setCards(res);
+      setIsFetching(false);
+    });
+  }, []);
 
   const handleShowCardNumber = () => {
     setShowCardNumber((prev) => !prev);
@@ -33,15 +45,19 @@ function App() {
       <div className='flex flex-col md:flex-row h-full rounded gap-10 md:p-10 mx-4'>
         <div className='flex-1 md:flex-1'>
           <div className='relative'>
-            <Carousel className='mt-5'>
-              <CarouselContent>
-                {addCards.map((card) => (
-                  <CarouselItem key={card.id}>
-                    <Card card={card} showCardNumber={showCardNumber} />
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
+            {isFetching ? (
+              <Spinner />
+            ) : (
+              <Carousel className='mt-5'>
+                <CarouselContent>
+                  {addedCards.map((card) => (
+                    <CarouselItem key={card.id}>
+                      <Card card={card} showCardNumber={showCardNumber} />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+            )}
             <div
               className='absolute -top-7 right-0 text-sm text-green-500 font-bold cursor-pointer'
               onClick={handleShowCardNumber}
