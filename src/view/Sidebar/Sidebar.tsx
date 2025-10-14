@@ -1,5 +1,5 @@
 import { menuItems } from "./contants";
-import AspireLogo from "../../assets/Logo.svg";
+import AspireLogo from "@/assets/Logo.svg";
 
 function Sidebar() {
   return (
