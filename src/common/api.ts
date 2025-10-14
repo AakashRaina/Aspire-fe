@@ -13,6 +13,15 @@ const mockCards: Card[] = [
     cvv: "123",
     cardType: "visa",
   },
+  {
+    id: 2,
+    cardNumber: "4567890123456789",
+    cardHolderName: "Rishu Raina",
+    expMonth: "12",
+    expYear: "2025",
+    cvv: "123",
+    cardType: "visa",
+  },
 ];
 
 const mockTransactions: Transaction[] = [

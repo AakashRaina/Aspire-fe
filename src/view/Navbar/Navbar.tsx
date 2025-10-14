@@ -7,7 +7,7 @@ function Navbar() {
         {menuItems.map((item, index) => (
           <div
             key={index}
-            className='flex flex-col items-center gap-1 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors'
+            className='flex flex-col items-center gap-1 py-2 px-3 rounded-lg hover:bg-gray-50'
           >
             <img src={item.icon} alt={item.label} className='text-gree-200' />
             <span

@@ -3,6 +3,7 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import CardOptions from "@/view/CardOptions";
 import {
@@ -17,18 +18,20 @@ import ShowCardNumberIcon from "@/assets/Eye_card.svg";
 import RecentTransactions from "@/view/RecentTransactions";
 import Card from "@/view/Card";
 import useStore from "@/store";
-import { api } from "@/common/api";
 import { Spinner } from "@/components/ui/spinner";
 import { useApi } from "@/hooks/useApi";
 import type { Card as CardType } from "@/common/types";
+import { api as fetchApi } from "@/common/api";
 
 function DebitCards() {
   const addedCards = useStore((state) => state.cards);
   const setCards = useStore((state) => state.setCards);
   const [showCardNumber, setShowCardNumber] = useState(false);
+  const [api, setApi] = useState<CarouselApi | null>(null);
+  const [current, setCurrent] = useState(0);
 
   const { data: cardsData, isLoading: isFetching } = useApi<CardType[]>(
-    api.getCards
+    fetchApi.getCards
   );
 
   useEffect(() => {
@@ -41,8 +44,18 @@ function DebitCards() {
     setShowCardNumber((prev) => !prev);
   };
 
+  const handleApiChange = (newApi: CarouselApi) => {
+    setApi(newApi);
+    if (newApi) {
+      setCurrent(newApi.selectedScrollSnap());
+      newApi.on("select", () => {
+        setCurrent(newApi.selectedScrollSnap());
+      });
+    }
+  };
+
   return (
-    <div className='flex flex-col md:flex-row h-full rounded gap-10 md:p-10 mx-4'>
+    <div className='flex flex-col md:flex-row h-full rounded gap-10 md:p-10 mx-4 overflow-x-auto lg:overflow-x-visible'>
       <div className='flex-1 md:flex-1'>
         <div className='relative mt-10'>
           {isFetching ? (
@@ -50,15 +63,31 @@ function DebitCards() {
               <Spinner color='#01D167' />
             </div>
           ) : (
-            <Carousel className='mt-5'>
-              <CarouselContent>
-                {addedCards.map((card) => (
-                  <CarouselItem key={card.id}>
-                    <Card card={card} showCardNumber={showCardNumber} />
-                  </CarouselItem>
+            <>
+              <Carousel
+                setApi={handleApiChange}
+                className='mt-5 mx-auto max-w-md'
+              >
+                <CarouselContent>
+                  {addedCards.map((card) => (
+                    <CarouselItem key={card.id}>
+                      <Card card={card} showCardNumber={showCardNumber} />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+              <div className='flex justify-center gap-2'>
+                {addedCards.map((card, index) => (
+                  <span
+                    key={card.id}
+                    onClick={() => api?.scrollTo(index)}
+                    className={`w-2 h-2 p-1 mt-4 flex items-center justify-center rounded-full text-sm font-medium cursor-pointer ${
+                      current === index ? "bg-green-500" : "bg-green-100"
+                    }`}
+                  />
                 ))}
-              </CarouselContent>
-            </Carousel>
+              </div>
+            </>
           )}
           <div
             className='absolute -top-7 right-0 text-sm text-green-500 font-bold cursor-pointer'
@@ -74,11 +103,11 @@ function DebitCards() {
             </p>
           </div>
         </div>
-        <div className='hidden md:block mt-5'>
+        <div className='hidden md:block mt-5 max-w-md mx-auto'>
           <CardOptions />
         </div>
       </div>
-      <div className='hidden md:flex md:flex-1 flex-col justify-start w-full overflow-y-auto max-h-full'>
+      <div className='hidden md:flex md:flex-1 flex-col justify-start w-full min-w-80 overflow-y-auto max-h-full'>
         <Accordion type='single' collapsible className='my-3 mt-10'>
           <AccordionItem value='card-details' className='rounded-t-md'>
             <AccordionTrigger className='bg-slate-100 px-2 rounded-t-md rounded-b-none'>

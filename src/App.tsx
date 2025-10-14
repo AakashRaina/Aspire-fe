@@ -1,6 +1,4 @@
 import { Layout } from "./view/Layout/Layout";
-import "./App.css";
-
 import DebitCards from "./view/DebitCards";
 import { Tabs } from "./components/ui/tabs";
 
