@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/accordion";
 import CardDetailsIcon from "@/assets/Card_details.svg";
 import RecentTransactionsIcon from "@/assets/Recent_transactions.svg";
-import RecentTransactions from "../RecentTransactions";
+import RecentTransactions from "@/view/RecentTransactions";
 
 function Bottomsheet() {
   return (

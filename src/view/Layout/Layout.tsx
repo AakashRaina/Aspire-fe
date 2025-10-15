@@ -1,7 +1,10 @@
-import Sidebar from "../Sidebar/Sidebar";
-import Header from "../Header";
-import Navbar from "../Navbar/Navbar";
+import { lazy, Suspense } from "react";
+import Sidebar from "@/view/Sidebar/Sidebar";
+import Header from "@/view/Header";
 import useIsMobile from "@/common/hooks/useIsMobile";
+
+// Lazy load the Navbar component
+const Navbar = lazy(() => import("@/view/Navbar/Navbar"));
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -33,7 +36,9 @@ export function Layout({ children }: LayoutProps) {
       </div>
       {isMobile && (
         <div className='fixed bottom-0 left-0 right-0 z-[99999] pointer-events-auto'>
-          <Navbar />
+          <Suspense fallback={<div className='h-16 bg-sky-950' />}>
+            <Navbar />
+          </Suspense>
         </div>
       )}
     </div>

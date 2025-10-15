@@ -4,7 +4,7 @@ import { useApi } from "@/common/hooks/useApi";
 import type { AccountBalance } from "@/common/types";
 import useStore from "@/store";
 import { Spinner } from "@/components/ui/spinner";
-import NewCardModal from "../NewCardModal";
+import NewCardModal from "@/view/NewCardModal";
 
 function Header() {
   const setAccountBalance = useStore((state) => state.setAccountBalance);
