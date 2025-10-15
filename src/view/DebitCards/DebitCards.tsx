@@ -21,14 +21,20 @@ import useStore from "@/store";
 import { Spinner } from "@/components/ui/spinner";
 import { useApi } from "@/hooks/useApi";
 import type { Card as CardType } from "@/common/types";
+import { Sheet } from "react-modal-sheet";
 import { api as fetchApi } from "@/common/api";
+import Bottomsheet from "../Bottomsheet";
+import useIsMobile from "@/hooks/useIsMobile";
 
 function DebitCards() {
   const addedCards = useStore((state) => state.cards);
+  const isBottomSheetOpen = useStore((state) => state.isBottomSheetOpen);
   const setCards = useStore((state) => state.setCards);
+
   const [showCardNumber, setShowCardNumber] = useState(false);
   const [api, setApi] = useState<CarouselApi | null>(null);
   const [current, setCurrent] = useState(0);
+  const isMobile = useIsMobile();
 
   const { data: cardsData, isLoading: isFetching } = useApi<CardType[]>(
     fetchApi.getCards
@@ -135,6 +141,24 @@ function DebitCards() {
           </AccordionItem>
         </Accordion>
       </div>
+      {isMobile && (
+        <Sheet
+          isOpen={isBottomSheetOpen}
+          onClose={() => {}}
+          snapPoints={[0, 0.3, 1]}
+          initialSnap={1}
+          disableDismiss
+        >
+          <Sheet.Container>
+            <Sheet.Header>
+              <CardOptions />
+            </Sheet.Header>
+            <Sheet.Content>
+              <Bottomsheet />
+            </Sheet.Content>
+          </Sheet.Container>
+        </Sheet>
+      )}
     </div>
   );
 }

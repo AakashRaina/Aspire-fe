@@ -1,30 +1,14 @@
 import Sidebar from "../Sidebar/Sidebar";
 import Header from "../Header";
 import Navbar from "../Navbar/Navbar";
-import { Sheet } from "react-modal-sheet";
-import { useState, useEffect } from "react";
-import CardOptions from "../CardOptions";
-import Bottomsheet from "../Bottomsheet";
-import useStore from "@/store";
+import useIsMobile from "@/hooks/useIsMobile";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export function Layout({ children }: LayoutProps) {
-  const [isMobile, setIsMobile] = useState(false);
-  const isBottomSheetOpen = useStore((state) => state.isBottomSheetOpen);
-
-  useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkIsMobile();
-    window.addEventListener("resize", checkIsMobile);
-
-    return () => window.removeEventListener("resize", checkIsMobile);
-  }, []);
+  const isMobile = useIsMobile();
 
   return (
     <div className='min-h-screen bg-background'>
@@ -47,24 +31,6 @@ export function Layout({ children }: LayoutProps) {
           </div>
         </div>
       </div>
-      {isMobile && (
-        <Sheet
-          isOpen={isBottomSheetOpen}
-          onClose={() => {}}
-          snapPoints={[0, 0.3, 1]}
-          initialSnap={1}
-          disableDismiss
-        >
-          <Sheet.Container>
-            <Sheet.Header>
-              <CardOptions />
-            </Sheet.Header>
-            <Sheet.Content>
-              <Bottomsheet />
-            </Sheet.Content>
-          </Sheet.Container>
-        </Sheet>
-      )}
       {isMobile && (
         <div className='fixed bottom-0 left-0 right-0 z-[99999] pointer-events-auto'>
           <Navbar />
