@@ -4,7 +4,7 @@ import { api } from "@/common/api";
 import { useEffect } from "react";
 import { Spinner } from "@/components/ui/spinner";
 import useStore from "@/store";
-import { useApi } from "@/hooks/useApi";
+import { useApi } from "@/common/hooks/useApi";
 import type { Transaction } from "@/common/types";
 
 function RecentTransactions() {

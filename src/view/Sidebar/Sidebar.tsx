@@ -1,4 +1,4 @@
-import { menuItems } from "./contants";
+import { menuItems } from "@/common/contants";
 import AspireLogo from "@/assets/Logo.svg";
 
 function Sidebar() {

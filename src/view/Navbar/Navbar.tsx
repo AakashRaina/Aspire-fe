@@ -1,4 +1,4 @@
-import { menuItems } from "../Sidebar/contants";
+import { menuItems } from "@/common/contants";
 
 function Navbar() {
   return (

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { api } from "@/common/api";
-import { useApi } from "@/hooks/useApi";
+import { useApi } from "@/common/hooks/useApi";
 import type { AccountBalance } from "@/common/types";
 import useStore from "@/store";
 import { Spinner } from "@/components/ui/spinner";

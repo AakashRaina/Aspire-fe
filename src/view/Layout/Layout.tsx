@@ -1,7 +1,7 @@
 import Sidebar from "../Sidebar/Sidebar";
 import Header from "../Header";
 import Navbar from "../Navbar/Navbar";
-import useIsMobile from "@/hooks/useIsMobile";
+import useIsMobile from "@/common/hooks/useIsMobile";
 
 interface LayoutProps {
   children: React.ReactNode;

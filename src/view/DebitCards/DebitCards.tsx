@@ -19,12 +19,12 @@ import RecentTransactions from "@/view/RecentTransactions";
 import Card from "@/view/Card";
 import useStore from "@/store";
 import { Spinner } from "@/components/ui/spinner";
-import { useApi } from "@/hooks/useApi";
+import { useApi } from "@/common/hooks/useApi";
 import type { Card as CardType } from "@/common/types";
 import { Sheet } from "react-modal-sheet";
 import { api as fetchApi } from "@/common/api";
 import Bottomsheet from "../Bottomsheet";
-import useIsMobile from "@/hooks/useIsMobile";
+import useIsMobile from "@/common/hooks/useIsMobile";
 
 function DebitCards() {
   const addedCards = useStore((state) => state.cards);
